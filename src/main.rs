@@ -1,5 +1,8 @@
 use crate::handlers::general::hello;
-use crate::handlers::shortener::shorten_url;
+use crate::handlers::shortener::{
+    shorten_url,
+    reveal_url
+};
 
 #[macro_use]
 extern crate rocket;
@@ -16,7 +19,8 @@ fn rocket() -> _ {
             "/api/shortener",
             routes![
                 hello,
-                shorten_url
+                shorten_url,
+                reveal_url
             ],
         )
 }

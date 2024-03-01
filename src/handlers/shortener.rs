@@ -1,5 +1,8 @@
 use crate::{
-    helpers::shortener::url_shortener,
+    helpers::shortener::{
+        url_revealer,
+        url_shortener
+    },
     helpers::validation::url_validator,
     models::shortener::ShortenerBody,
     responses::general::GeneralResponse
@@ -37,8 +40,37 @@ pub fn shorten_url(
     
     let json_response = GeneralResponse {
         is_success: true,
-        message: "success".to_string(),
-        data: format!("{}api/shorten/reveal/{}", base_url, shortened_url)
+        message: "URL successfully shortened".to_string(),
+        data: format!("{}api/shortener/reveal/{}", base_url, shortened_url)
+    };
+
+    Ok(Json(json_response))
+}
+
+#[get("/reveal/<shortened_url>")]
+pub async fn reveal_url(
+    shortened_url: String
+) -> Result<Json<GeneralResponse>, Custom<Json<GeneralResponse>>> {
+    let revealed_url = url_revealer(shortened_url.clone());
+    if revealed_url.is_empty() {
+        let base_url = match env::var_os("BASE_URL") {
+            Some(v) => v.into_string().unwrap(),
+            None => "http://localhost:8000/".to_string()
+        };
+        
+        let err_response = GeneralResponse {
+            is_success: false,
+            message: format!("{}api/shortener/reveal/{} is not a shortened URL!!!", base_url, shortened_url),
+            data: "".to_string()
+        };
+
+        return Err(Custom(Status::NotFound, Json(err_response)));
+    }
+
+    let json_response = GeneralResponse {
+        is_success: true,
+        message: "URL successfully revealed".to_string(),
+        data: revealed_url
     };
 
     Ok(Json(json_response))

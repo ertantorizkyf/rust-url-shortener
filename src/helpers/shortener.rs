@@ -30,3 +30,15 @@ pub fn url_shortener(url: String) -> String {
     
     shortened_url
 }
+
+pub fn url_revealer(shortened_url: String) -> String {
+    let redis_url = match env::var_os("REDIS_URL") {
+        Some(v) => v.into_string().unwrap(),
+        None => "redis://127.0.0.1:6379".to_string()
+    };
+    let mut client = redis::Client::open(redis_url).unwrap();
+
+    let redis_search_val = client.get(&shortened_url).unwrap_or("".to_string());
+    
+    redis_search_val
+}
