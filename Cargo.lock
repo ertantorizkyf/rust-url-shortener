@@ -981,7 +981,9 @@ dependencies = [
 name = "rust-url-shortener"
 version = "0.1.0"
 dependencies = [
+ "rand",
  "redis",
+ "regex",
  "rocket",
  "serde",
 ]
