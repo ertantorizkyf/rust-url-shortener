@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "69ba95f3-b604-4b75-9dd3-2c5dd5cd7478",
+		"name": "URL Shortener",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26585392"
+	},
+	"item": [
+		{
+			"name": "Shorten URL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://google.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/shortener",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"shortener"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reveal URL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/shortener/reveal/{{shortened_url}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"shortener",
+						"reveal",
+						"{{shortened_url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
