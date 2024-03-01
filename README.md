@@ -9,7 +9,7 @@ Rust API using rocket frameworks to shorten a url implementing rand, regex, and 
 - src/helpers/* - Set of functions to perform specific function, called by handlers
 - src/models/* - Data structure
 - src/responses/* - Response structure
-- assets/URL Shortener.postman_collection.json - Contain list of available APIs along with its request query or body
+- assets/URL Shortener.postman_collection.json - API postman collection
 
 ## Running the app
 - debug mode: `cargo watch -q -c -w src/ -x run`
