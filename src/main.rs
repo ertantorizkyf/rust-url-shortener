@@ -1,4 +1,3 @@
-use crate::handlers::general::hello;
 use crate::handlers::shortener::{
     shorten_url,
     reveal_url
@@ -20,7 +19,6 @@ fn rocket() -> _ {
         .mount(
             "/api/shortener",
             routes![
-                hello,
                 shorten_url,
                 reveal_url
             ],
