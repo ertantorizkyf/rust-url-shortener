@@ -22,7 +22,10 @@ pub fn url_shortener(url: String) -> String {
         if redis_search_val.is_empty() {
             match client.set(&shortened_url, &url) {
                 Ok(()) => println!("{} SAVED TO REDIS", &shortened_url),
-                Err(e) => println!("REDIS SET ERR: {:?}", e)
+                Err(e) => {
+                    println!("REDIS SET ERR: {:?}", e);
+                    shortened_url = "".to_string();
+                }
             };
             is_new_shortened_url = true;
         }

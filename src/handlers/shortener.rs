@@ -37,6 +37,16 @@ pub fn shorten_url(
         None => "http://localhost:8000/".to_string()
     };
     let shortened_url = url_shortener(url.clone());
+
+    if shortened_url.is_empty() {
+        let err_response = GeneralResponse {
+            is_success: false,
+            message: "Fail to shorten URL".to_string(),
+            data: "".to_string()
+        };
+
+        return Err(Custom(Status::InternalServerError, Json(err_response)));
+    }
     
     let json_response = GeneralResponse {
         is_success: true,
